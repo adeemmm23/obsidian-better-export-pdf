@@ -19,6 +19,7 @@ export default {
     printBackground: "Print background",
     maxLevel: "Max headings level of the outline",
     displayMetadata: "PDF metadata",
+    isVersionNumber: "Add version number",
     headerTemplate: "Header Template",
     footerTemplate: "Footer Template",
     isTimestamp: "Add timestamp",

@@ -379,7 +379,15 @@ export class ExportConfigModal extends Modal {
           this.close();
         }
       } else {
-        const outputFile = await getOutputFile(title, this.plugin.settings.isTimestamp);
+        const cache = this.getFileCache(this.file as TFile);
+        const version = cache?.frontmatter?.version;
+        console.log("versionNumber:", version);
+        const outputFile = await getOutputFile(
+          title,
+          this.plugin.settings.isTimestamp,
+          this.plugin.settings.isVersionNumber,
+          version,
+        );
         if (outputFile) {
           await exportToPDF(outputFile, { ...this.plugin.settings, ...this.config }, this.webviews[0], this.docs[0]);
           this.close();
@@ -592,6 +600,16 @@ export class ExportConfigModal extends Modal {
           this.config["displayFooter"] = value;
         }),
     );
+
+    new Setting(contentEl)
+      .setName(this.i18n.settings.isVersionNumber)
+      .setDesc("Add version number")
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.isVersionNumber).onChange(async (value) => {
+          this.plugin.settings.isVersionNumber = value;
+          this.plugin.saveSettings();
+        }),
+      );
 
     new Setting(contentEl).setName(this.i18n.exportDialog.openAfterExport).addToggle((toggle) =>
       toggle

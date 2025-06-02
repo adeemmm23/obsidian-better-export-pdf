@@ -23,6 +23,7 @@ export interface BetterExportPdfPluginSettings {
   generateTaggedPDF: boolean;
 
   displayMetadata: boolean;
+  isVersionNumber: boolean;
 
   isTimestamp: boolean;
   debug: boolean;
@@ -43,6 +44,7 @@ const DEFAULT_SETTINGS: BetterExportPdfPluginSettings = {
   generateTaggedPDF: false,
 
   displayMetadata: false,
+  isVersionNumber: false,
   debug: false,
   isTimestamp: false,
   enabledCss: false,

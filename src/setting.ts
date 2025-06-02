@@ -111,6 +111,16 @@ export default class ConfigSettingTab extends PluginSettingTab {
         }),
       );
 
+    new Setting(containerEl)
+      .setName(this.i18n.settings.isVersionNumber)
+      .setDesc("Add version number")
+      .addToggle((toggle) =>
+        toggle.setValue(this.plugin.settings.isVersionNumber).onChange(async (value) => {
+          this.plugin.settings.isVersionNumber = value;
+          this.plugin.saveSettings();
+        }),
+      );
+
     new Setting(containerEl).setName("Advanced").setHeading();
 
     const headerContentAreaSetting = new Setting(containerEl);

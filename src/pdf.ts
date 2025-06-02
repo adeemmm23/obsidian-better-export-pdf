@@ -296,6 +296,7 @@ export async function addPageNumbers(doc: PDFDocument, setting: PageSetting) {
   }
 }
 
+// Adem
 export type PdfFrontMatterCache = {
   // pdf metadata
   title?: string;
@@ -454,11 +455,19 @@ export async function exportToPDF(
   }
 }
 
-export async function getOutputFile(filename: string, isTimestamp?: boolean) {
+export async function getOutputFile(
+  filename: string,
+  isTimestamp?: boolean,
+  isVersionNumber?: boolean,
+  version?: string,
+) {
+  const versionStr =
+    isVersionNumber && version ? (version.toString().includes(".") ? " v" + version : " v" + version + ".0") : "";
+  const timeStampStr = isTimestamp ? (isVersionNumber ? "." + Date.now() : " " + Date.now()) : "";
   // @ts-ignore
   const result = await electron.remote.dialog.showSaveDialog({
     title: "Export to PDF",
-    defaultPath: filename + (isTimestamp ? "-" + Date.now() : "") + ".pdf",
+    defaultPath: filename + versionStr + timeStampStr + ".pdf",
     filters: [
       { name: "All Files", extensions: ["*"] },
       { name: "PDF", extensions: ["pdf"] },

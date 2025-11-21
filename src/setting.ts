@@ -34,12 +34,16 @@ export default class ConfigSettingTab extends PluginSettingTab {
 
     containerEl.empty();
 
-    const supportDesc = new DocumentFragment();
-    supportDesc.createDiv({
-      text: "Support the continued development of this plugin.",
+    // orgaization name
+    new Setting(containerEl).setName(this.i18n.settings.organization).addText((text) => {
+      text
+        .setPlaceholder("Your organization name")
+        .setValue(this.plugin.settings.organization)
+        .onChange(async (value) => {
+          this.plugin.settings.organization = value;
+          this.plugin.saveSettings();
+        });
     });
-    new Setting(containerEl).setDesc(supportDesc);
-    renderBuyMeACoffeeBadge(containerEl);
 
     new Setting(containerEl).setName(this.i18n.settings.showTitle).addToggle((toggle) =>
       toggle
@@ -130,7 +134,7 @@ export default class ConfigSettingTab extends PluginSettingTab {
       .setDesc(
         "HTML template for the print header. " +
           "Should be valid HTML markup with following classes used to inject printing values into them: " +
-          'date (formatted print date), title (document title), url (document location), pageNumber (current page number) and totalPages (total pages in the document). For example, <span class="title"></span> would generate span containing the title.',
+          'date (formatted print date), title (document title), url (document location), pageNumber (current page number), totalPages (total pages in the document), and organization (organization name from settings). For example, <span class="title"></span> would generate span containing the title, and <span class="organization"></span> would generate span containing the organization name.',
       );
     const hederContentArea = new TextAreaComponent(headerContentAreaSetting.controlEl);
 
@@ -146,7 +150,9 @@ export default class ConfigSettingTab extends PluginSettingTab {
     footerContentAreaSetting.settingEl.setAttribute("style", "display: grid; grid-template-columns: 1fr;");
     footerContentAreaSetting
       .setName(this.i18n.settings.footerTemplate)
-      .setDesc("HTML template for the print footer. Should use the same format as the headerTemplate.");
+      .setDesc(
+        "HTML template for the print footer. Should use the same format as the headerTemplate. Supports the same classes: date, title, url, pageNumber, totalPages, and organization.",
+      );
     const footerContentArea = new TextAreaComponent(footerContentAreaSetting.controlEl);
 
     setAttributes(footerContentArea.inputEl, {

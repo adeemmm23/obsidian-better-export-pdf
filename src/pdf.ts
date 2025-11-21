@@ -385,6 +385,18 @@ export async function exportToPDF(
   if (scale > 200 || scale < 10) {
     scale = 100;
   }
+  const processTemplate = (template: string) => {
+    return template.replace(/{{\s*organization\s*}}/g, config.organization || "");
+  };
+
+  const headerTemplate = config["displayHeader"]
+    ? frontMatter?.["headerTemplate"] ?? config["headerTemplate"]
+    : "<span></span>";
+
+  const footerTemplate = config["displayFooter"]
+    ? frontMatter?.["footerTemplate"] ?? config["footerTemplate"]
+    : "<span></span>";
+
   const printOptions: electron.PrintToPDFOptions = {
     landscape: config?.["landscape"],
     printBackground: config?.["printBackground"],
@@ -395,12 +407,8 @@ export async function exportToPDF(
       marginType: "default",
     },
     displayHeaderFooter: config["displayHeader"] || config["displayFooter"],
-    headerTemplate: config["displayHeader"]
-      ? frontMatter?.["headerTemplate"] ?? config["headerTemplate"]
-      : "<span></span>",
-    footerTemplate: config["displayFooter"]
-      ? frontMatter?.["footerTemplate"] ?? config["footerTemplate"]
-      : "<span></span>",
+    headerTemplate: processTemplate(headerTemplate),
+    footerTemplate: processTemplate(footerTemplate),
   };
 
   if (config.marginType == "0") {

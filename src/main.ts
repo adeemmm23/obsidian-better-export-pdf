@@ -24,6 +24,7 @@ export interface BetterExportPdfPluginSettings {
 
   displayMetadata: boolean;
   isVersionNumber: boolean;
+  organization: string;
 
   isTimestamp: boolean;
   debug: boolean;
@@ -37,7 +38,7 @@ const DEFAULT_SETTINGS: BetterExportPdfPluginSettings = {
 
   displayHeader: true,
   displayFooter: true,
-  headerTemplate: `<div style="width: 100vw;font-size:10px;text-align:center;"><span class="title"></span></div>`,
+  headerTemplate: `<div style="width: 100vw;font-size:10px;text-align:center;"><span class="title"></span><span class="organization" style="margin-left: 10px;"></span></div>`,
   footerTemplate: `<div style="width: 100vw;font-size:10px;text-align:center;"><span class="pageNumber"></span> / <span class="totalPages"></span></div>`,
 
   printBackground: false,
@@ -45,6 +46,7 @@ const DEFAULT_SETTINGS: BetterExportPdfPluginSettings = {
 
   displayMetadata: false,
   isVersionNumber: false,
+  organization: "",
   debug: false,
   isTimestamp: false,
   enabledCss: false,

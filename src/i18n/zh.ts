@@ -24,6 +24,7 @@ export default {
     maxLevel: "最大标题级别",
     displayMetadata: "PDF元数据",
     isVersionNumber: "添加版本号",
+    organization: "组织名称",
     headerTemplate: "页眉模板",
     footerTemplate: "页脚模板",
     isTimestamp: "文件名添加时间戳",

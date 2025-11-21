@@ -20,6 +20,7 @@ export default {
     maxLevel: "Max headings level of the outline",
     displayMetadata: "PDF metadata",
     isVersionNumber: "Add version number",
+    organization: "Organization name",
     headerTemplate: "Header Template",
     footerTemplate: "Footer Template",
     isTimestamp: "Add timestamp",
